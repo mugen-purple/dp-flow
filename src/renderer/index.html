@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DP Flow</title>
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">DP</span><span>DP Flow</span></div>
+        <nav aria-label="Navegacao principal">
+            <a class="nav-item active" href="#dashboard"><span>01</span> Dashboard</a>
+            <a class="nav-item" href="#tasks"><span>02</span> Tarefas</a>
+            <a class="nav-item" href="#calendar"><span>03</span> Agenda</a>
+            <a class="nav-item" href="#companies"><span>04</span> Empresas</a>
+            <a class="nav-item" href="#employees"><span>05</span> Funcionários</a>
+            <a class="nav-item" href="#collaboration"><span>06</span> Colaboração</a>
+            <a class="nav-item" href="#contracts"><span>07</span> Contratos</a>
+            <a class="nav-item" href="#calculations"><span>08</span> Cálculos</a>
+            <a class="nav-item" href="#admissions"><span>09</span> Admissões</a>
+            <a class="nav-item" href="#support"><span>10</span> Suporte</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="status-dot"></div>
+            <div><strong id="collaboration-sidebar-title">Modo local</strong><small id="collaboration-sidebar-status">Dados protegidos neste dispositivo</small></div>
+        </div>
+    </aside>
+
+    <main class="content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow" id="current-date-label">CARREGANDO DATA</p>
+                <h1 id="greeting-title">Bom dia.</h1>
+            </div>
+            <button class="profile-button" id="profile-button" type="button" aria-label="Entrar com Google"><span class="profile-initials">DF</span><img class="profile-picture" alt="" /></button>
+        </header>
+
+        <div class="view" id="dashboard-view">
+        <section class="welcome-panel" aria-labelledby="welcome-title">
+            <div>
+                <p class="eyebrow warm">VISÃO DO DIA</p>
+                <h2 id="welcome-title">Seu trabalho, em movimento.</h2>
+                <p>Esta é a fundação do seu espaço de produtividade. O próximo passo é trazer suas empresas e rotinas
+                    para cá.</p>
+            </div>
+            <div class="panel-brand" aria-hidden="true"><img src="./dp-flow-logo.png" alt="" /></div>
+        </section>
+
+        <section class="metrics" aria-label="Resumo de tarefas">
+            <article class="metric"><span class="metric-label">Atrasadas</span><strong data-metric="overdue">0</strong><span
+                    class="metric-note neutral">Tudo em dia</span></article>
+            <article class="metric"><span class="metric-label">Para hoje</span><strong data-metric="today">0</strong><span
+                    class="metric-note">Nenhum prazo próximo</span></article>
+            <article class="metric"><span class="metric-label">Em andamento</span><strong data-metric="in-progress">0</strong><span
+                    class="metric-note">Pronto para começar</span></article>
+            <article class="metric accent"><span class="metric-label">Tempo trabalhado</span><strong>00:00</strong><span
+                    class="metric-note">Nesta semana</span></article>
+                <article class="metric"><span class="metric-label">Experiência</span><strong data-metric="experience-alerts">0</strong><span
+                    class="metric-note">Períodos para revisar</span></article>
+                <article class="metric accent"><span class="metric-label">Férias</span><strong data-metric="vacation-alerts">0</strong><span
+                    class="metric-note">Disponíveis ou em atraso</span></article>
+        </section>
+
+        <section class="dashboard-intel" aria-label="Informações importantes de DP">
+            <article class="business-day-card">
+                <div><p class="eyebrow warm">CALENDÁRIO DE FOLHA</p><h2>5º dia útil</h2><p id="business-day-context">Calculando a próxima data...</p></div>
+                <strong id="business-day-date">--/--</strong>
+                <div class="payroll-due-dates">
+                    <div><span>FGTS</span><strong id="fgts-due-date">--/--</strong></div>
+                    <div><span>INSS</span><strong id="inss-due-date">--/--</strong></div>
+                </div>
+            </article>
+            <article class="news-card">
+                <div class="news-card-heading"><div><p class="eyebrow">RADAR DE DP</p><h2>Atualizações importantes</h2></div><span id="news-counter">01 / 10</span></div>
+                <div class="news-carousel" id="news-carousel">
+                    <div class="news-slide" id="news-slide"></div>
+                    <div class="news-controls"><button id="news-previous" type="button" aria-label="Notícia anterior">←</button><div class="news-dots" id="news-dots"></div><button id="news-next" type="button" aria-label="Próxima notícia">→</button></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="foundation-card esocial-deadlines-card" aria-labelledby="foundation-title">
+            <div class="esocial-deadlines-heading">
+                <p class="eyebrow">CALENDÁRIO DE OBRIGAÇÕES</p>
+                <h2 id="foundation-title">Prazos do eSocial</h2>
+                <p>Referência rápida para organizar os eventos do mês. Confira o leiaute e a situação de cada empresa antes do envio.</p>
+                <small id="system-status">Verificando banco de dados local...</small>
+            </div>
+            <div class="esocial-deadline-groups">
+                <article class="esocial-deadline-group"><h3>Folha de pagamento</h3><ul><li><strong>S-1200 e S-1210</strong><span>Até o dia 15 do mês seguinte ao mês de referência.</span></li><li><strong>S-1299 · Fechamento</strong><span>Até o dia 15 do mês seguinte ao mês de referência.</span></li><li><strong>Sem movimento</strong><span>Até o dia 15 do primeiro mês do ano ou no mês sem atividade remunerada.</span></li></ul></article>
+                <article class="esocial-deadline-group"><h3>Vínculos e movimentações</h3><ul><li><strong>S-2200 · Admissão</strong><span>Até o dia anterior ao início das atividades, salvo casos específicos.</span></li><li><strong>S-2206 e S-2230</strong><span>Até o dia útil seguinte à alteração ou ocorrência.</span></li><li><strong>S-2299 · Desligamento</strong><span>Até 10 dias corridos do desligamento ou antes do vencimento das verbas rescisórias.</span></li></ul></article>
+                <article class="esocial-deadline-group"><h3>Saúde e segurança</h3><ul><li><strong>S-2210 · CAT</strong><span>Até o primeiro dia útil seguinte à ocorrência ou imediatamente em caso de óbito.</span></li><li><strong>S-2220 e S-2240</strong><span>Até o dia 15 do mês subsequente ao exame ou à alteração da condição ambiental.</span></li></ul></article>
+            </div>
+        </section>
+
+        <section class="next-step-card" aria-labelledby="next-step-title">
+            <div>
+                <p class="eyebrow">CONFIGURAÇÃO INICIAL</p>
+                <h2 id="next-step-title">Comece com uma rotina real.</h2>
+                <p>Cadastre seu perfil, uma empresa e a primeira tarefa que você quer acompanhar.</p>
+            </div>
+            <button class="primary-button" id="open-onboarding" type="button">Configurar meu espaço <span>↗</span></button>
+        </section>
+        </div>
+
+        <section class="view hidden" id="tasks-view" aria-labelledby="tasks-view-title">
+            <div class="view-heading">
+                <div><p class="eyebrow">ROTINAS EM MOVIMENTO</p><h2 id="tasks-view-title">Tarefas</h2><p>Uma visão simples do que precisa avançar agora.</p></div>
+                <button class="primary-button" id="open-task-form" type="button">Nova tarefa <span>+</span></button>
+            </div>
+            <div class="inline-form hidden" id="task-form-container">
+                <form id="task-form">
+                    <label>Processo padrão<select id="task-process-preset"><option value="">Escolher depois</option><option value="admission">Admissão</option><option value="vacation">Férias</option><option value="termination">Rescisão</option><option value="payroll">Fechamento de folha</option></select></label>
+                    <label>Título<input name="title" required maxlength="160" placeholder="Ex.: Conferir documentos da folha" /></label>
+                    <label>Empresa<select name="companyId" id="task-company" required></select></label>
+                    <label>Prazo<input name="dueAt" type="datetime-local" /></label>
+                    <label>Prioridade<select name="priority"><option value="LOW">Baixa</option><option value="MEDIUM" selected>Média</option><option value="HIGH">Alta</option><option value="URGENT">Urgente</option></select></label>
+                    <label>Estimativa<input name="estimatedMinutes" type="number" min="0" step="5" placeholder="Minutos" /></label>
+                    <label class="task-checklist-field">Etapas do processo <span class="optional">uma por linha</span><textarea name="checklist" rows="5" placeholder="Receber informações da folha&#10;Conferir lançamentos&#10;Calcular encargos&#10;Revisar valores&#10;Enviar para aprovação"></textarea></label>
+                    <p class="form-error" id="task-error" role="alert"></p>
+                    <button class="primary-button" type="submit">Salvar tarefa <span>→</span></button>
+                </form>
+            </div>
+            <div class="kanban-board" id="task-list"><p class="empty-state">Carregando tarefas...</p></div>
+            <section class="completed-tasks-block" aria-labelledby="completed-tasks-title"><div class="section-heading"><div><p class="eyebrow">HISTÓRICO RECENTE</p><h3 id="completed-tasks-title">Concluídas</h3></div><span class="retention-note">Mantidas por 30 dias</span></div><div class="completed-task-list" id="completed-task-list"><p class="empty-state">Nenhuma tarefa concluída recentemente.</p></div></section>
+        </section>
+
+        <section class="view hidden" id="calendar-view" aria-labelledby="calendar-view-title">
+            <div class="view-heading"><div><p class="eyebrow">PRAZOS E PRIORIDADES</p><h2 id="calendar-view-title">Agenda</h2><p>Uma fila simples para saber o que precisa de atenção primeiro.</p></div></div>
+            <section class="agenda-calendar" aria-label="Calendário de tarefas">
+                <div class="agenda-calendar-toolbar"><button class="calendar-nav-button" id="agenda-previous-month" type="button" aria-label="Mês anterior">←</button><h3 id="agenda-calendar-label"></h3><button class="calendar-nav-button" id="agenda-next-month" type="button" aria-label="Próximo mês">→</button><button class="secondary-button" id="agenda-today" type="button">Hoje</button><button class="text-button" id="agenda-clear-filter" type="button">Ver todas</button></div>
+                <div class="agenda-weekdays" aria-hidden="true"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+                <div class="agenda-calendar-grid" id="agenda-calendar-grid"></div>
+            </section>
+            <div class="agenda-list" id="agenda-list"><p class="empty-state">Carregando agenda...</p></div>
+        </section>
+
+        <section class="view hidden" id="companies-view" aria-labelledby="companies-view-title">
+            <div class="view-heading">
+                <div><p class="eyebrow">CADASTRO E ORGANIZAÇÃO</p><h2 id="companies-view-title">Empresas</h2><p>Gerencie as empresas atendidas e mantenha seus dados prontos para as rotinas de DP.</p></div>
+                <button class="primary-button" id="open-company-form" type="button">Nova empresa <span>+</span></button>
+            </div>
+            <div class="inline-form hidden" id="company-form-container">
+                <form id="company-form">
+                    <label>Nome da empresa<input name="name" required maxlength="120" placeholder="Ex.: Empresa ABC" /></label>
+                    <label>CNPJ <span class="optional">obrigatório</span><input name="cnpj" required maxlength="18" placeholder="00.000.000/0000-00 ou formato alfanumérico" /></label>
+                    <p class="form-error" id="company-error" role="alert"></p>
+                    <button class="primary-button" type="submit">Salvar empresa <span>→</span></button>
+                </form>
+            </div>
+            <div class="record-list" id="company-list"><p class="empty-state">Carregando empresas...</p></div>
+        </section>
+
+        <section class="view hidden" id="employees-view" aria-labelledby="employees-view-title">
+            <div class="view-heading">
+                <div><p class="eyebrow">CONTROLE TRABALHISTA</p><h2 id="employees-view-title">Funcionários</h2><p>Reúna os funcionários de todas as empresas e acompanhe experiência e férias em uma única visão.</p></div>
+                <div class="view-heading-actions"><button class="secondary-button" id="import-employees-button" type="button">Importar arquivo <span>↥</span></button><button class="primary-button" id="open-employee-form" type="button">Novo funcionário <span>+</span></button></div>
+            </div>
+            <div class="employee-tabs" role="tablist" aria-label="Gestão de funcionários">
+                <button class="employee-tab active" type="button" role="tab" aria-selected="true" data-employee-tab="overview">Funcionários</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="vacations">Férias</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="experience">Experiência</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="documents">Documentação</button>
+            </div>
+            <div id="employee-overview-panel">
+            <div class="employee-summary" id="employee-summary"></div>
+            <div class="inline-form hidden" id="employee-form-container">
+                <form id="employee-form">
+                    <label>Nome completo<input name="name" required maxlength="140" placeholder="Ex.: Ana Souza" /></label>
+                    <label>Empresa do vínculo<select name="employmentCompanyId" id="employee-employment-company" required></select></label>
+                    <label class="hidden" id="employee-other-company-field">Nome da outra empresa<input name="employmentCompanyName" id="employee-other-company" maxlength="140" placeholder="Ex.: Empresa do grupo William" /></label>
+                    <label>Empresa responsável no DP Flow<select name="companyId" id="employee-company" required></select></label>
+                    <label>CPF <span class="optional">opcional</span><input name="cpf" maxlength="14" placeholder="000.000.000-00" /></label>
+                    <label>Cargo <span class="optional">opcional</span><input name="role" maxlength="120" placeholder="Ex.: Assistente administrativo" /></label>
+                    <label>Salário base <span class="optional">opcional</span><input name="salaryBase" type="number" min="0" step="0.01" placeholder="Ex.: 2801,98" /></label>
+                    <label>Data de admissão<input name="admissionDate" type="date" required /></label>
+                    <label>Situação<select name="employmentStatus"><option value="ACTIVE">Ativo</option><option value="INACTIVE">Inativo</option></select></label>
+                    <label>Telefone do responsável <span class="optional">opcional</span><input name="responsiblePhone" type="tel" maxlength="30" placeholder="(00) 00000-0000" /></label>
+                    <label>E-mail do responsável <span class="optional">opcional</span><input name="responsibleEmail" type="email" maxlength="160" placeholder="responsavel@empresa.com" /></label>
+                    <label class="employee-notes-field">Observações <span class="optional">opcional</span><textarea name="notes" rows="2" maxlength="500" placeholder="Ex.: período já programado com a empresa"></textarea></label>
+                    <p class="form-error" id="employee-error" role="alert"></p>
+                    <button class="primary-button" id="employee-form-submit" type="submit">Salvar funcionário <span>→</span></button>
+                </form>
+            </div>
+            <div class="employee-toolbar"><label>Empresa<select id="employee-company-filter"><option value="">Todas as empresas</option></select></label><label>Buscar funcionário<input id="employee-search" type="search" placeholder="Nome, CPF ou cargo" /></label><label>Situação<select id="employee-status-filter"><option value="ACTIVE">Ativos</option><option value="">Todos</option><option value="INACTIVE">Inativos</option></select></label><label>Selecionar filtros<select id="employee-alert-filter"><option value="">Todos os funcionários</option><option value="vacation">Férias para acompanhar</option><option value="overdue">Férias vencidas</option><option value="experience">Experiência para revisar</option></select></label></div>
+            <div class="employee-list" id="employee-list"><p class="empty-state">Cadastre o primeiro funcionário para começar.</p></div>
+            </div>
+        </section>
+
+        <section class="view employee-subtab-panel hidden" id="vacations-view" aria-labelledby="vacations-view-title">
+            <div class="view-heading"><div><p class="eyebrow">CONTROLE TRABALHISTA</p><h2 id="vacations-view-title">Férias dos funcionários</h2><p>Pesquise um funcionário e revise todos os períodos aquisitivos e concessivos calculados pela admissão.</p></div><span class="section-badge">Tabela editável</span></div>
+            <div class="employee-tabs" role="tablist" aria-label="Gestão de funcionários">
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="overview">Funcionários</button>
+                <button class="employee-tab active" type="button" role="tab" aria-selected="true" data-employee-tab="vacations">Férias</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="experience">Experiência</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="documents">Documentação</button>
+            </div>
+            <div class="vacation-filters"><label>Nome, CPF ou cargo<input id="vacation-employee-search" type="search" placeholder="Pesquisar funcionário" /></label><label>Empresa responsável<select id="vacation-company-filter"><option value="">Todas as empresas</option></select></label><label>Funcionário<select id="vacation-employee-select"><option value="">Selecione um funcionário</option></select></label></div>
+            <div class="vacation-table-wrap" id="vacation-table-wrap"><p class="empty-state">Selecione um funcionário para visualizar a tabela de férias.</p></div>
+        </section>
+
+        <section class="view employee-subtab-panel hidden" id="experience-view" aria-labelledby="employee-experience-title">
+            <div class="view-heading"><div><p class="eyebrow">CONTROLE TRABALHISTA</p><h2 id="employee-experience-title">Períodos de experiência</h2><p>Revise os prazos e atualize o status de experiência de cada funcionário.</p></div><span class="section-badge">44 + 45 dias</span></div>
+            <div class="employee-tabs" role="tablist" aria-label="Gestão de funcionários">
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="overview">Funcionários</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="vacations">Férias</button>
+                <button class="employee-tab active" type="button" role="tab" aria-selected="true" data-employee-tab="experience">Experiência</button>
+                <button class="employee-tab" type="button" role="tab" aria-selected="false" data-employee-tab="documents">Documentação</button>
+            </div>
+            <div class="experience-table-wrap" id="experience-table-wrap"><p class="empty-state">Carregando experiência...</p></div>
+        </section>
+
+        <section class="view employee-subtab-panel hidden" id="documents-view" aria-labelledby="employee-documents-title">
+            <div class="view-heading"><div><p class="eyebrow">CONTROLE TRABALHISTA</p><h2 id="employee-documents-title">Documentação dos funcionários</h2><p>Confira as datas emitidas, os vencimentos calculados e complete manualmente o que não veio no arquivo.</p></div><div class="view-heading-actions"><button class="secondary-button" id="document-back-to-employees" type="button">Voltar para funcionários</button><span class="section-badge">Alertas em 7 dias</span></div></div>
+            <div class="vacation-filters"><label>Nome, CPF ou cargo<input id="document-employee-search" type="search" placeholder="Pesquisar funcionário" /></label><label>Empresa responsável<select id="document-company-filter"><option value="">Todas as empresas</option></select></label><label>Funcionário<select id="document-employee-select"><option value="">Selecione um funcionário</option></select></label><div class="document-status-controls hidden" id="document-status-controls"><label>Situação do funcionário<select id="document-employee-status"><option value="ACTIVE">Ativo</option><option value="INACTIVE">Desligado</option></select></label><button class="secondary-button document-status-save" id="document-status-save" type="button">Salvar situação</button></div></div>
+            <div class="employee-document-note">A validade padrão é sugerida automaticamente, mas pode ser alterada em meses para cada documento conforme a norma da empresa. Salvar recalcula o vencimento.</div>
+            <div class="document-employee-directory" id="document-employee-directory"></div>
+            <div class="vacation-table-wrap" id="document-table-wrap"><p class="empty-state">Selecione um funcionário para visualizar a documentação.</p></div>
+        </section>
+
+        <section class="view hidden" id="collaboration-view" aria-labelledby="collaboration-view-title">
+            <div class="view-heading"><div><p class="eyebrow">TRABALHO EM EQUIPE</p><h2 id="collaboration-view-title">Colaboração</h2><p>Compartilhe tarefas, empresas, checklists, templates e histórico com sua equipe.</p></div><span class="section-badge" id="collaboration-badge">Modo local</span></div>
+            <div class="collaboration-layout">
+                <article class="collaboration-card">
+                    <p class="eyebrow">SUA CONTA</p><h3 id="collaboration-identity-title">Conta local</h3><p class="form-hint">Cada alteração fica registrada com o nome da conta que realizou a ação.</p>
+                    <form id="collaboration-identity-form"><label>Nome da conta<input name="name" id="collaboration-name" required maxlength="80" placeholder="Ex.: Daniela" /></label><button class="secondary-button" type="submit">Salvar nome</button><p class="form-error" id="collaboration-identity-error" role="alert"></p></form>
+                </article>
+                <article class="collaboration-card">
+                    <p class="eyebrow">ESPAÇO COMPARTILHADO</p><h3 id="collaboration-workspace-title">Nenhum espaço conectado</h3><p class="form-hint">Escolha uma pasta do OneDrive, Google Drive, Dropbox ou rede compartilhada. A mesma pasta deve ser aberta pelas outras contas.</p>
+                    <form id="collaboration-workspace-form"><label>Pasta do espaço<input name="folderPath" id="collaboration-folder-path" readonly placeholder="Escolha uma pasta" /></label><div class="collaboration-actions"><button class="secondary-button" id="choose-collaboration-folder" type="button">Escolher pasta</button><button class="primary-button" type="submit">Conectar espaço <span>→</span></button></div><p class="form-error" id="collaboration-workspace-error" role="alert"></p></form>
+                    <button class="text-button hidden" id="disconnect-collaboration" type="button">Desconectar este espaço</button>
+                </article>
+            </div>
+            <article class="collaboration-members"><div class="section-heading"><div><p class="eyebrow">EQUIPE</p><h3>Contas neste espaço</h3></div><button class="secondary-button" id="sync-collaboration" type="button">Sincronizar agora</button></div><div id="collaboration-members-list"><p class="empty-state">Conecte um espaço para ver os membros.</p></div><p class="form-hint">Para outra pessoa entrar, envie o instalador e compartilhe a mesma pasta. Ela deve informar o próprio nome ao conectar.</p></article>
+        </section>
+
+        <section class="view hidden" id="admissions-view" aria-labelledby="admissions-view-title">
+            <div class="view-heading"><div><p class="eyebrow">ENTRADA DE DOCUMENTOS</p><h2 id="admissions-view-title">Admissões</h2><p>Receba respostas do Google Forms, acompanhe pendências e baixe os documentos enviados.</p></div><span class="section-badge" id="admissions-account-badge">Google não conectado</span></div>
+            <div class="admissions-setup">
+                <article class="admission-setup-card" id="google-account-card"><div><p class="eyebrow">1 · CONTA GOOGLE</p><h3>Conectar com Google</h3><p>Faça login na conta que possui acesso ao formulário. O Google exibirá as permissões antes de autorizar.</p></div><form id="google-account-form"><button class="primary-button" type="submit">Conectar conta Google <span>↗</span></button><p class="form-error" id="google-account-error" role="alert"></p></form></article>
+                <article class="admission-setup-card"><div><p class="eyebrow">2 · FORMULÁRIO</p><h3>Vincular Google Forms</h3><p>Cole o link de edição ou o ID do formulário usado para coletar os dados.</p></div><form id="admission-form-link"><label>Link ou ID do formulário<input name="formUrl" required placeholder="https://docs.google.com/forms/d/.../edit" /></label><button class="primary-button" type="submit">Vincular formulário <span>→</span></button><p class="form-error" id="admission-form-error" role="alert"></p></form></article>
+            </div>
+            <div class="admissions-toolbar"><div><p class="eyebrow">FORMULÁRIOS VINCULADOS</p><select id="admission-form-select" aria-label="Selecionar formulário"><option value="">Nenhum formulário vinculado</option></select></div><label class="admission-company-filter">EMPRESA<select id="admission-company-filter" aria-label="Filtrar admissões por empresa"><option value="">Todas as empresas</option></select></label><button class="secondary-button" id="sync-admissions" type="button">Sincronizar respostas</button><span class="form-hint" id="admission-sync-status">Aguardando configuração.</span></div>
+            <div class="admissions-layout"><div class="admission-response-list" id="admission-response-list"><p class="empty-state">Vincule um formulário para acompanhar as admissões.</p></div><article class="admission-response-detail" id="admission-response-detail"><p class="eyebrow">RESPOSTA SELECIONADA</p><h3>Nenhuma resposta selecionada</h3><p class="form-hint">As respostas e documentos aparecerão aqui depois da sincronização.</p></article></div>
+        </section>
+
+        <section class="view hidden" id="contracts-view" aria-labelledby="contracts-view-title">
+            <div class="view-heading"><div><p class="eyebrow">DOCUMENTOS DE DP</p><h2 id="contracts-view-title">Modelos de contrato</h2><p>Escolha uma base e adapte os campos ao caso concreto antes de usar.</p></div><span class="section-badge">4 modelos prontos</span></div>
+            <div class="contract-workspace">
+                <div class="contract-grid" id="contract-model-list"></div>
+                <article class="contract-preview" aria-live="polite"><div class="section-heading"><div><p class="eyebrow">PRÉVIA DO MODELO</p><h3 id="contract-preview-title">Contrato por prazo indeterminado</h3></div><button class="secondary-button" id="copy-contract-model" type="button">Copiar texto</button></div><textarea id="contract-preview-text" rows="16" aria-label="Texto do modelo de contrato"></textarea><p class="form-hint">Modelo de apoio. Revise cláusulas, convenções coletivas e dados da empresa antes da assinatura.</p></article>
+            </div>
+        </section>
+
+        <section class="view hidden" id="support-view" aria-labelledby="support-view-title">
+            <div class="view-heading"><div><p class="eyebrow">ATENDIMENTO</p><h2 id="support-view-title">Suporte</h2><p>Envie uma mensagem diretamente para davi.andrade.dp@gmail.com.</p></div><span class="section-badge">Canal direto</span></div>
+            <article class="support-card"><form id="support-form"><label>Seu e-mail ou telefone <span class="optional">opcional</span><input name="sender" type="text" maxlength="160" placeholder="Como podemos retornar?" /></label><label>Assunto<input name="subject" required maxlength="120" placeholder="Ex.: Dúvida sobre admissões" /></label><label>Mensagem<textarea name="message" required rows="8" maxlength="4000" placeholder="Descreva o que aconteceu ou o que você precisa."></textarea></label><p class="form-error" id="support-error" role="alert"></p><button class="primary-button" type="submit">Enviar mensagem ao suporte <span>→</span></button></form></article>
+        </section>
+
+        <section class="view hidden" id="calculations-view" aria-labelledby="calculations-view-title">
+            <div class="view-heading"><div><p class="eyebrow">SIMULAÇÕES TRABALHISTAS</p><h2 id="calculations-view-title">Cálculos simples</h2><p>Estimativas para conferência inicial. Não substituem o cálculo oficial da folha.</p></div><span class="section-badge">Uso interno</span></div>
+            <div class="calculation-tabs" role="tablist" aria-label="Tipos de cálculo"><button class="calculation-tab active" type="button" data-calculation="termination">Rescisão</button><button class="calculation-tab" type="button" data-calculation="vacation">Férias</button><button class="calculation-tab" type="button" data-calculation="salary-provision">Provisão de salário</button></div>
+            <div class="calculation-panel" id="termination-calculation">
+                <form class="calculation-form" id="termination-form"><div class="form-section-title"><p class="eyebrow">SIMULAÇÃO DE RESCISÃO</p><h3>Verbas básicas</h3></div><label class="calculation-employee-field"><span class="field-label">Funcionário cadastrado</span><select id="termination-employee" name="employeeId"><option value="">Simulação manual</option></select></label><label><span class="field-label">Salário bruto mensal</span><input name="salary" type="number" min="0" step="0.01" value="3000" required /></label><label><span class="field-label">Dias trabalhados no mês</span><input name="workedDays" type="number" min="0" max="31" value="15" required /></label><label><span class="field-label">Meses de 13º proporcional</span><input name="thirteenthMonths" type="number" min="0" max="12" value="6" required /></label><label class="field-with-hint"><span class="field-label">Férias vencidas</span><select name="vacationOverdue"><option value="no" selected>Não</option><option value="yes">Sim</option></select><small>Quando sim, acrescenta um período completo de férias mais 1/3.</small></label><label class="field-with-hint"><span class="field-label">Meses de férias proporcionais</span><input name="vacationMonths" type="number" min="0" max="12" step="1" value="6" required /><small>Atualizado pela admissão do funcionário.</small></label><label class="field-with-hint"><span class="field-label">Aviso prévio</span><select name="notice"><option value="yes">Sim · indenizado</option><option value="no" selected>Não</option><option value="deducted">Descontado do empregado</option></select><small>Considera 30 dias do salário mensal.</small></label><label><span class="field-label">Descontos estimados</span><input name="discounts" type="number" min="0" step="0.01" value="0" /></label><button class="primary-button" type="submit">Calcular rescisão <span>→</span></button></form>
+                <div class="calculation-result" id="termination-result"><p class="eyebrow">RESULTADO ESTIMADO</p><h3>Preencha os dados para simular</h3><div class="result-total"><span>Total líquido estimado</span><strong>R$ 0,00</strong></div><div class="result-lines"></div><p class="form-hint">Não inclui FGTS, multa de 40%, médias, adicionais ou outras verbas específicas.</p></div>
+            </div>
+            <div class="calculation-panel hidden" id="vacation-calculation">
+                <form class="calculation-form" id="vacation-form"><div class="form-section-title"><p class="eyebrow">SIMULAÇÃO DE FÉRIAS</p><h3>Valor do período</h3></div><label class="calculation-employee-field"><span class="field-label">Funcionário cadastrado</span><select id="vacation-employee" name="employeeId"><option value="">Simulação manual</option></select></label><label><span class="field-label">Salário bruto mensal</span><input name="salary" type="number" min="0" step="0.01" value="3000" required /></label><label><span class="field-label">Dias de férias</span><input name="days" type="number" min="1" max="30" value="30" required /></label><label><span class="field-label">Abono pecuniário</span><input name="bonusDays" type="number" min="0" max="10" value="0" /></label><label><span class="field-label">Descontos estimados</span><input name="discounts" type="number" min="0" step="0.01" value="0" /></label><button class="primary-button" type="submit">Calcular férias <span>→</span></button></form>
+                <div class="calculation-result" id="vacation-result"><p class="eyebrow">RESULTADO ESTIMADO</p><h3>Preencha os dados para simular</h3><div class="result-total"><span>Total líquido estimado</span><strong>R$ 0,00</strong></div><div class="result-lines"></div><p class="form-hint">Cálculo simples: remuneração dos dias + 1/3 constitucional. Impostos não são calculados automaticamente.</p></div>
+            </div>
+            <div class="calculation-panel hidden" id="salary-provision-calculation">
+                <form class="calculation-form" id="salary-provision-form"><div class="form-section-title"><p class="eyebrow">CUSTO MENSAL ESTIMADO</p><h3>Provisão do funcionário</h3></div><label class="calculation-employee-field"><span class="field-label">Funcionário cadastrado</span><select id="provision-employee" name="employeeId" required><option value="">Selecione um funcionário</option></select></label><label><span class="field-label">Salário base mensal</span><input name="salary" type="number" min="0" step="0.01" required /></label><label><span class="field-label">FGTS</span><select name="fgtsRate"><option value="0.08" selected>8%</option><option value="0">Não considerar</option></select></label><label><span class="field-label">Multa rescisória do FGTS</span><select name="severanceFineRate"><option value="0.40" selected>40% do FGTS</option><option value="0">Não considerar</option></select></label><label><span class="field-label">INSS patronal</span><select name="inssRate"><option value="0.20" selected>20%</option><option value="0">Não considerar</option></select></label><label><span class="field-label">RAT estimado</span><select name="ratRate"><option value="0.02" selected>2%</option><option value="0">Não considerar</option></select></label><label><span class="field-label">Terceiros estimado</span><select name="thirdPartyRate"><option value="0.058" selected>5,8%</option><option value="0">Não considerar</option></select></label><button class="primary-button" type="submit">Calcular provisão <span>→</span></button></form>
+                <div class="calculation-result" id="salary-provision-result"><p class="eyebrow">RESULTADO ESTIMADO</p><h3>Selecione um funcionário para começar</h3><div class="result-total"><span>Custo mensal estimado</span><strong>R$ 0,00</strong></div><div class="result-lines"></div><button class="secondary-button" id="export-salary-provision-pdf" type="button" disabled>Gerar PDF da provisão <span>↓</span></button><p class="form-hint">Estimativa com salário, 13º, férias + 1/3 e encargos selecionados. Confira o regime tributário antes de usar.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-backdrop hidden" id="onboarding-modal" role="presentation">
+        <section class="onboarding-modal" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+            <button class="modal-close" id="close-onboarding" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">SEU ESPAÇO LOCAL</p>
+            <h2 id="onboarding-title">Vamos preparar o primeiro fluxo.</h2>
+            <p class="modal-intro">Esses dados ficam somente neste dispositivo e poderão ser editados depois.</p>
+            <form id="onboarding-form">
+                <label>Seu nome<input name="name" required maxlength="80" placeholder="Ex.: Daniela Freitas" /></label>
+                <label>Seu perfil<input name="role" required maxlength="80" placeholder="Ex.: Analista de Departamento Pessoal" /></label>
+                <label>Primeira empresa<input name="companyName" required maxlength="120" placeholder="Ex.: Empresa ABC" /></label>
+                <label>CNPJ da primeira empresa <span class="optional">14 caracteres</span><input name="companyCnpj" required maxlength="18" placeholder="00.000.000/0000-00 ou formato alfanumérico" /></label>
+                <label>Primeira tarefa<input name="taskTitle" required maxlength="160" placeholder="Ex.: Fechar folha da Empresa ABC" /></label>
+                <p class="form-error" id="onboarding-error" role="alert"></p>
+                <button class="primary-button form-submit" type="submit">Criar meu espaço <span>→</span></button>
+            </form>
+        </section>
+    </div>
+
+    <div class="modal-backdrop hidden" id="task-detail-modal" role="presentation">
+        <section class="task-detail-modal" role="dialog" aria-modal="true" aria-labelledby="task-detail-title">
+            <button class="modal-close" id="close-task-detail" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">DETALHES DA TAREFA</p>
+            <h2 id="task-detail-title">Tarefa</h2>
+            <p class="task-detail-company" id="task-detail-company"></p>
+            <div class="task-status-actions"><span id="task-detail-status"></span><button class="secondary-button" id="task-detail-status-toggle" type="button">Concluir tarefa</button></div>
+            <div class="timer-panel"><div><p class="eyebrow">TEMPO TRABALHADO</p><strong id="task-timer-display">00:00:00</strong></div><button class="primary-button" id="task-timer-toggle" type="button">Iniciar cronômetro <span>▶</span></button></div>
+            <form id="task-detail-form">
+                <input type="hidden" name="taskId" />
+                <label>Descrição<textarea name="description" rows="4" maxlength="2000" placeholder="O que precisa ser feito?"></textarea></label>
+                <div class="detail-form-grid">
+                    <label>Prioridade<select name="priority"><option value="LOW">Baixa</option><option value="MEDIUM">Média</option><option value="HIGH">Alta</option><option value="URGENT">Urgente</option></select></label>
+                    <label>Estimativa (minutos)<input name="estimatedMinutes" type="number" min="0" step="5" placeholder="Ex.: 90" /></label>
+                </div>
+                <label>Prazo<input name="dueAt" type="datetime-local" /></label>
+                <p class="form-error" id="task-detail-error" role="alert"></p>
+                <button class="primary-button form-submit" type="submit">Salvar detalhes <span>→</span></button>
+            </form>
+            <div class="checklist-block"><p class="eyebrow">CHECKLIST</p><div id="task-checklist"><p class="empty-state">Nenhuma etapa vinculada.</p></div></div>
+            <div class="history-block"><p class="eyebrow">HISTÓRICO</p><div id="task-history"><p class="empty-state">Carregando histórico...</p></div></div>
+        </section>
+    </div>
+    <div class="modal-backdrop hidden" id="employee-import-modal" role="presentation">
+        <section class="onboarding-modal employee-import-modal" role="dialog" aria-modal="true" aria-labelledby="employee-import-title">
+            <button class="modal-close" id="close-employee-import" type="button" aria-label="Fechar">×</button>
+            <p class="eyebrow">IMPORTAÇÃO EM LOTE</p>
+            <h2 id="employee-import-title">Admitir funcionários do relatório</h2>
+            <p class="modal-intro" id="employee-import-file-name">Selecione um PDF, TXT ou HTML com texto de funcionários.</p>
+            <form id="employee-import-form">
+                <label>Empresa responsável no DP Flow<select id="employee-import-company" name="companyId" required><option value="">Selecione uma empresa...</option></select></label>
+                <label>Empresa do vínculo <span class="optional">opcional</span><select id="employee-import-employment-company" name="employmentCompanyId"><option value="">Mesma empresa responsável</option></select></label>
+                <div class="import-contact-fields"><label>Telefone do responsável <span class="optional">opcional</span><input name="responsiblePhone" type="tel" maxlength="30" placeholder="(00) 00000-0000" /></label><label>E-mail do responsável <span class="optional">opcional</span><input name="responsibleEmail" type="email" maxlength="160" placeholder="responsavel@empresa.com" /></label></div>
+                <div class="import-preview" id="employee-import-preview"><p class="empty-state">Escolha o arquivo para visualizar os funcionários encontrados.</p></div>
+                <p class="form-error" id="employee-import-error" role="alert"></p>
+                <button class="primary-button form-submit" type="submit" id="confirm-employee-import" disabled>Importar funcionários <span>→</span></button>
+            </form>
+        </section>
+    </div>
+    <div class="app-notification hidden" id="app-notification" role="status" aria-live="polite">
+        <div class="notification-icon" aria-hidden="true">✓</div>
+        <div class="notification-copy"><strong id="notification-title">Atualização</strong><span id="notification-message"></span></div>
+        <button class="notification-close" id="notification-close" type="button" aria-label="Fechar notificação">×</button>
+        <div class="notification-progress" aria-hidden="true"><span></span></div>
+    </div>
+    <script src="./renderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+{
+  "name": "dp-flow",
+  "version": "1.9.0",
+  "description": "Sistema local de produtividade para DP, RH, administracao e contabilidade.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "keywords": [
+    "dp",
+    "rh",
+    "produtividade",
+    "sqlite",
+    "electron"
+  ],
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "@xmldom/is-dom-node": "^1.0.1",
+    "@xmldom/xmldom": "^0.8.10",
+    "googleapis": "^178.1.1",
+    "node-forge": "^1.3.1",
+    "pdf-parse": "^1.1.1",
+    "xml-crypto": "^6.1.2",
+    "xpath": "^0.0.34"
+  },
+  "build": {
+    "appId": "br.dpflow.desktop",
+    "productName": "DP Flow",
+    "artifactName": "DP-Flow-Setup-${version}.${ext}",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json",
+      "node_modules/**/*",
+      "!**/*.db",
+      "!**/*.db-shm",
+      "!**/*.db-wal",
+      "!scripts/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png",
+      "artifactName": "DP-Flow-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DP Flow",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh"
+    }
+  }
+}
